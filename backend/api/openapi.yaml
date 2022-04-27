@@ -1,0 +1,282 @@
+#
+# Firenode Backend
+#
+
+openapi: '3.0.3'
+
+info:
+  description: Firenode Backend
+  version: 0.1.0
+  title: Firenode Backend
+
+servers:
+  - url: http://localhost:3010
+
+paths:
+  /dummy:
+    get:
+      description: Dummy Endpoint
+      responses:
+        200:
+          description: Succesful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DummyResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sensor:
+    get:
+      description: Search for sensor by ID
+      parameters:
+        - name: sensorType
+          in: query
+          description: Sensor Type (D = detection, S = sink, B = base)
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: Succesful retrieval of sensors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorResponse'
+        404:
+          description: Sensor not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Add a new sensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+      responses: 
+        201:
+          description: Successfully added sensor
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Sensor'
+        400: 
+          description: Cannot add sensor
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sensor/{id}:
+    get:
+      description: Search for sensor by ID
+      parameters:
+        - name: id
+          in: path
+          description: Sensor ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Succesful retrieval of sensor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorResponse'
+        404:
+          description: Sensor not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: Delete a sensor
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          description: Sensor ID
+      responses:
+        204: 
+          description: Successfully deleted sensor
+        404: 
+          description: Sensor not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /reading:
+    get:
+      description: Search for readings by sensor ID
+      parameters:
+        - name: sensorId
+          in: query
+          description: Sensor ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Succesful retrieval of reading
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingResponse'
+        404:
+          description: Sensor does not exist
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Add a new reading
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reading'
+      responses: 
+        201:
+          description: Successfully added reading
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Reading'
+        400: 
+          description: Cannot add sensor
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /latestReading:
+      get:
+        description: Retrieve latest reading of all detection Sensors
+        responses:
+          200:
+            description: Succesful retrieval of readings
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReadingResponse'
+          404:
+            description: No active sensors
+          default:
+            description: unexpected error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+
+  /latestReading/{id}:
+      get:
+        description: Retrieve latest reading of a Sensor, given its ID
+        parameters:
+          - name: id
+            in: path
+            description: Sensor ID
+            required: true
+            schema:
+              type: integer
+        responses:
+          200:
+            description: Succesful retrieval of reading
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReadingResponse'
+          404:
+            description: Sensor not found
+          default:
+            description: unexpected error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+      required:
+        - code
+        - message
+        
+    DummyResponse:
+      properties:
+        message:
+          type: string
+      required:
+        - message
+        
+    SensorResponse:
+      type: array
+      items: 
+        $ref: '#/components/schemas/Sensor'     
+        
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: integer
+        sensorType:
+          type: string
+          maxLength: 1
+        xPos:
+          type: number
+        yPos:
+          type: number
+
+    ReadingResponse:
+      type: array
+      items: 
+        $ref: '#/components/schemas/Reading'     
+        
+    Reading:
+      type: object
+      properties:
+        sensorId:
+          type: integer
+        readTime:
+          type: string
+        co:
+          type: number
+        temp:
+          type: number
+        humid:
+          type: number
+      example:
+        sensorId: 18
+        readTime: '2022-04-20 04:20:00'
+        co: 123.45
+        temp: 123.45
+        humid: 123.45

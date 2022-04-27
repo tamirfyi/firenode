@@ -1,0 +1,52 @@
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+
+  margin: 5px;
+  padding: 0px;
+}
+
+
+.container {
+  height: auto;
+  width: auto;
+  border-radius: 6px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.5px solid #ccc;
+}
+
+.coords {
+  font-size: small;
+  color: #555;
+}
+
+.readTime {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-size: small;
+  color: #555;
+}
+
+.itemReading {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: right;
+  align-items: center; 
+}
+
+.fire {
+  border: 1px red solid;
+}
+
+.approaching {
+  border: 1px rgb(255, 123, 0) solid;
+}

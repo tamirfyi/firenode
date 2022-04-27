@@ -1,0 +1,91 @@
+.title {
+  padding-left: 5px;
+}
+
+.container {
+  height: auto;
+  width: auto;
+  border-radius: 6px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.5px solid #ccc;
+}
+
+input {
+  height: 25px;
+  width: 75px;
+
+  padding: 5px;
+  margin: 5px;
+  border: 0.5px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100px;
+  height: 35px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.saveButton {
+  width: 80px;
+  height: 30px;
+  border: 0.5px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  color: #666;
+}
+
+.saveButton:hover {
+  cursor: pointer;
+  background: #0275d8;
+  color: white;
+  transition: 0.125s ease all;
+}
+
+.cancel {
+  width: 80px;
+  height: 30px;
+  border: 0.5px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  color: #666;
+}
+
+.cancel:hover {
+  color: white;
+  background: rgb(236, 72, 72);
+  border: 0.5px solid rgb(236, 72, 72);
+  /* cursor: pointer; */
+  transition: 0.125s ease all;
+}
+
+.message {
+  font-size: smaller;
+  font-style: italic;
+  padding: 0px 5px;
+  color: #555;
+}
+
+.errorMessage {
+  font-size: smaller;
+  font-weight: 500;
+  padding: 0px 5px;
+  color: red;
+}
