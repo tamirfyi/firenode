@@ -136,5 +136,5 @@ const SensorMap = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAe8inQgtWl9rdPCgadYXj-5CrGxqrOo38',
+  apiKey: '',
 })(SensorMap);
