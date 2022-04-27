@@ -1,7 +1,7 @@
 # Firenode
 Full stack web application that visualizes a wildfire detection mesh network built with IEEE 802.15.4
 
-# Instructions
+## Installation
 
 1. Clone this repository
 ```
