@@ -13,7 +13,7 @@ const SensorMap = (props) => {
 
   const containerStyle = {
     width: '95%',
-    height: '80%',
+    height: '70%',
   };
 
   const onMapClick = (props) => {
@@ -136,5 +136,5 @@ const SensorMap = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAe8inQgtWl9rdPCgadYXj-5CrGxqrOo38',
+  apiKey: '',
 })(SensorMap);

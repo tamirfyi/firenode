@@ -1,0 +1,25 @@
+.sensorStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.statContainer {
+  height: auto;
+  width: auto;
+  border-radius: 6px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid #ccc;
+}
+
+.statInfo {
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -8,13 +8,10 @@ import Header from './UI/Header';
 import SensorMap from './Map/SensorMap';
 import SensorList from './Sensors/SensorList';
 import LoadingInfo from './UI/LoadingInfo';
-// import NewSensor from './Sensors/NewSensor';
-// import FilterSensors from './Sensors/FilterSensors';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import MapStats from './Map/MapStats';
 
 /**
  * Simple component with no state.
@@ -33,14 +30,14 @@ function App() {
   const [isStarting, setIsStarting] = useState(true);
   const [sensors, setSensors] = useState([]);
   const [threshold, setThreshold] = useState({
-    temp: 0,
-    humid: 0,
-    co: 0,
+    temp: 50,
+    humid: 20,
+    co: 10,
   });
   const [tolerance, setTolerance] = useState({
-    temp: 0,
-    humid: 0,
-    co: 0,
+    temp: 25,
+    humid: 10,
+    co: 5,
   });
   const [refresh, setRefresh] = useState(false);
   const [readings, setReadings] = useState([]);
@@ -115,12 +112,18 @@ function App() {
         reading.humid >= threshold.co
       ) {
         urgent.push(reading.sensorId);
+      } else if (
+        reading.co >= tolerance.co ||
+        reading.temp >= tolerance.temp ||
+        reading.humid >= tolerance.co
+      ) {
+        warning.push(reading.sensorId);
       }
     });
 
     setWarnSensors(warning);
     setFireSensors(urgent);
-    if (urgent.length > 0){
+    if (urgent.length > 0 || warning.length > 0) {
       setOpen(true);
     } else {
       setOpen(false);
@@ -157,6 +160,7 @@ function App() {
     <div className={styles.app}>
       <Header hide={isStarting} show={showMap} toggleMap={changeShowMap} />
       {isStarting && <LoadingInfo />}
+      {showMap && <MapStats/>}
       {showMap === true && (
         <SensorMap center={location} activeSensors={sensors} />
       )}
@@ -169,13 +173,30 @@ function App() {
           toleranceValues={tolerance}
         />
       )}
-      {!isStarting && (
+      {!isStarting && showMap && (
         <Stack spacing={2} sx={{width: '100%'}}>
-          <Snackbar onClick={handleClose} open={open} autoHideDuration={600}>
-            <Alert severity='error'>
-              {fireSensors.length < 2 ? `Sensor ${fireSensors.sort().join('')} detect a fire!` : `Sensors ${fireSensors.sort().join(', ')} detect a fire!`}
-            </Alert>
-          </Snackbar>
+          {warnSensors.length > 0 && (
+            <Snackbar onClick={handleClose} open={open} autoHideDuration={20}>
+              <Alert severity='warning'>
+                {warnSensors.length < 2
+                  ? `Sensor ${warnSensors
+                      .sort()
+                      .join('')} is approaching a fire!`
+                  : `Sensors ${warnSensors
+                      .sort()
+                      .join(', ')} are approaching a fire!`}
+              </Alert>
+            </Snackbar>
+          )}
+          {fireSensors.length > 0 && (
+            <Snackbar onClick={handleClose} open={open} autoHideDuration={20}>
+              <Alert severity='error'>
+                {fireSensors.length < 2
+                  ? `Sensor ${fireSensors.sort().join('')} detects a fire!`
+                  : `Sensors ${fireSensors.sort().join(', ')} detect a fire!`}
+              </Alert>
+            </Snackbar>
+          )}
         </Stack>
       )}
     </div>
