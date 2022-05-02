@@ -47,8 +47,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SensorResponse'
-        404:
-          description: Sensor not found
+        204:
+          description: No sensors found
         default:
           description: unexpected error
           content:

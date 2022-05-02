@@ -6,9 +6,9 @@ timeString = now.strftime(("%Y/%m/%d %H:%M:%S"))
 
 url = 'http://localhost:3010/reading'
 readingObj = {
-  'sensorId': 4,
+  'sensorId': 3,
   'readTime': timeString,
-  'co': 1.0,
+  'co': 0.0,
   'temp': 0.0,
   'humid': 0.0,
 }

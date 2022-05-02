@@ -9,6 +9,7 @@
 
 
 .container {
+  position: relative;
   height: auto;
   width: auto;
   border-radius: 6px;
@@ -43,10 +44,20 @@
   align-items: center; 
 }
 
-.fire {
-  border: 1px red solid;
+.readingContent {
+  padding-right: 15px;
 }
 
-.approaching {
-  border: 1px rgb(255, 123, 0) solid;
+.deleteButton {
+  padding: 2px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.deleteButton:hover {
+  background: #aaa;
+  padding: 2px;
+  color: white;
+  border-radius: 50%;
 }

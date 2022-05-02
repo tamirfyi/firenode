@@ -2,11 +2,12 @@ const sensordb = require('./sensordb');
 
 exports.getSensors = async (req, res) => {
   const sensors = await sensordb.getSensors(req.query.sensorType);
+  const empty = [];
 
   if (sensors) {
     res.status(200).send(sensors);
   } else {
-    res.status(404).send('Not found');
+    res.status(200).send(empty);
   }
 };
 

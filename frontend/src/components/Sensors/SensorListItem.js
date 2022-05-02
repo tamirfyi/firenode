@@ -2,12 +2,24 @@
 
 import styles from './SensorListItem.module.css';
 import React, {useState, useEffect} from 'react';
+import {AiOutlineClose} from 'react-icons/ai';
 import axios from 'axios';
 
 const SensorListItem = (props) => {
   const [reading, setReading] = useState({});
   const [noReading, setNoReading] = useState(true);
   const [axiosError, setAxiosError] = useState(undefined);
+
+  const deleteHandler = async () => {
+    console.log(props.info.id);
+    try {
+      const deleteSensor = await axios
+      .delete(`http://localhost:3010/sensor/${props.info.id}`);
+      props.refresh();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchLatestReading = async () => {
     if (props.info.sensorType === 'D') {
@@ -19,7 +31,6 @@ const SensorListItem = (props) => {
           });
         setNoReading(false);
         setReading(latestReading.data[0]);
-        console.log(latestReading.data[0]);
       } catch (error) {
         setNoReading(true);
       }
@@ -37,9 +48,9 @@ const SensorListItem = (props) => {
   }, []);
 
   let readingContent = noReading ? (
-    <p>Retrieving latest reading...</p>
+    <p className={styles.readingContent}>Retrieving latest reading...</p>
   ) : (
-    <div>
+    <div className={styles.readingContent}>
       <div className={styles.itemReading}>
         <p>Temp: {reading.temp}°C</p>
         <p>Humidity: {reading.humid}% RF</p>
@@ -53,6 +64,11 @@ const SensorListItem = (props) => {
 
   return (
     <div className={`${styles.container}`}>
+      <AiOutlineClose
+        className={styles.deleteButton}
+        size={10}
+        onClick={deleteHandler}
+      />
       <div className={styles.itemHeader}>
         <p>Node {props.info.id} </p>
         <p className={styles.coords}>

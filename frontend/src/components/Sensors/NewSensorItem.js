@@ -1,19 +1,40 @@
 import styles from './NewSensorItem.module.css';
 import React, {useState} from 'react';
 import axios from 'axios';
+import {MdLocationOn} from 'react-icons/md';
 
 const NewSensorItem = (props) => {
-  const [wasAdded, setWasAdded] = useState(undefined);
+  const [wasAdded, setWasAdded] = useState();
   const [disableButtons, setDisableButtons] = useState(false);
   const [newId, setNewId] = useState();
   const [newX, setNewX] = useState();
   const [newY, setNewY] = useState();
   const [newType, setNewType] = useState('B');
-  const [inputError, setInputError] = useState(false);
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [inputError, setInputError] = useState('');
+
+  const handleSuccess = (pos) => {
+    setGeoLoading(false);
+    const {latitude, longitude} = pos.coords;
+    setNewX(latitude);
+    setNewY(longitude);
+  };
+
+  const handleError = (error) => {
+    setInputError('Please enable location services!');
+  };
+
+  const findPosition = () => {
+    setGeoLoading(true);
+    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+  };
 
   const onAddingHandler = () => {
     if (!newId || !newX || !newY) {
-      setInputError(true);
+      setInputError('Input values cannot be empty!');
+      return;
+    } else if (newX > 180 || newX < -180 || newY > 180 || newY < -180) {
+      setInputError('Please enter valid coordinates');
       return;
     }
 
@@ -25,14 +46,14 @@ const NewSensorItem = (props) => {
         yPos: +newY,
       })
       .then((response) => {
-        // console.log(response);
+        setInputError('');
         setWasAdded(true);
         setDisableButtons(true);
         props.refreshMap();
       })
       .catch((error) => {
-        // console.log(error);
-        setInputError(true);
+        console.log(error);
+        setInputError('Sensor with that ID already exists!');
       });
   };
 
@@ -53,8 +74,9 @@ const NewSensorItem = (props) => {
     setInputError(false);
   };
 
-  const errorMessage = (
-    <p className={styles.errorMessage}>Could not add sensor!</p>
+  const errorMessage = <p className={styles.errorMessage}>{inputError}</p>;
+  const locationMessage = (
+    <p className={styles.locationMessage}>Finding current location...</p>
   );
   const addedMessage = (
     <p className={styles.message}>
@@ -77,11 +99,23 @@ const NewSensorItem = (props) => {
           <option value='S'>Sink</option>
           <option value='D'>Detection</option>
         </select>
-        <input onChange={newXHandler} placeholder='X°'></input>
-        <input onChange={newYHandler} placeholder='Y°'></input>
+        <input
+          onChange={newXHandler}
+          value={newX ? newX : null}
+          placeholder='X°'
+        ></input>
+        <input
+          onChange={newYHandler}
+          value={newY ? newY : null}
+          placeholder='Y°'
+        ></input>
+        <button onClick={findPosition} className={styles.generateCoordsButton}>
+          <MdLocationOn size={20} />
+        </button>
       </div>
       {wasAdded ? addedMessage : null}
       {inputError ? errorMessage : null}
+      {geoLoading ? locationMessage : null}
     </div>
   );
 

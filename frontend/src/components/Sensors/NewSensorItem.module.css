@@ -34,6 +34,40 @@ input {
   text-align: center;
 }
 
+.generateCoordsButton {
+  color: #555;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: auto;
+  height: auto;
+}
+
+.generateCoordsButton:hover {
+  color: black;
+  transition: 0.2s ease all;
+}
+.generateCoordsButton:active {
+  color: #0275d8;
+  transition: 0.1s ease all;
+}
+
+.locationMessage {
+  font-size: smaller;
+  font-weight: 500;
+  padding: 0px 5px;
+  color: rgb(133, 133, 133);
+}
+
+
+.generateCoordsButton {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: auto;
+  height: auto;
+}
+
 .data {
   display: flex;
   justify-content: center;
@@ -104,4 +138,10 @@ input {
   font-weight: 500;
   padding: 0px 5px;
   color: red;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
