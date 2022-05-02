@@ -87,7 +87,7 @@ const SensorMap = (props) => {
         <p>Latest Reading: {reading.readTime}</p>
         <p>Temperature: {reading.temp} °C</p>
         <p>Humidity: {reading.humid}% RH</p>
-        <p>CO: {reading.temp}ppm</p>
+        <p>CO: {reading.co}ppm</p>
       </React.Fragment>
     ) : (
       <React.Fragment>

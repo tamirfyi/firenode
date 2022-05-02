@@ -115,7 +115,7 @@ function App() {
     fetchLatestReadings();
     const interval = setInterval(() => {
       fetchLatestReadings();
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [refresh]);
