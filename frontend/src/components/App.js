@@ -36,7 +36,6 @@ function App() {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -77,14 +76,9 @@ function App() {
 
     readings.forEach((reading) => {
       const readTime = new Date(reading.readTime);
-      if (reading.temp >= 25 && currentTime - readTime <= 10000) {
+      if (reading.temp >= 28 && currentTime - readTime <= 10000) {
         detectedSensors.push(reading.sensorId);
       }
-      // } else if (reading.humid >= 20) {
-      //   detectedSensors.push(reading.sensorId);
-      // } else if (reading.co >= 5) {
-      //   detectedSensors.push(reading.sensorId);
-      // }
     });
     setDetected(detectedSensors);
 
@@ -102,6 +96,7 @@ function App() {
         .catch((err) => {
           setAxiosError(err);
         });
+        console.log(latestReading.data);
       setReadings(latestReading.data);
       checkReadings(latestReading.data);
     } catch (error) {
@@ -130,7 +125,6 @@ function App() {
       {showMap === false && <SensorList refresh={promptRefresh} />}
       {!isStarting && showMap && (
         <Stack spacing={2} sx={{width: '100%'}}>
-          {open && (
             <Snackbar onClick={handleClose} open={open} autoHideDuration={20}>
               <Alert severity='error'>
                 {detected.length < 2
@@ -138,7 +132,6 @@ function App() {
                   : `Sensors ${detected.sort().join(', ')} detect a fire!`}
               </Alert>
             </Snackbar>
-          )}
         </Stack>
       )}
     </div>

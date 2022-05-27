@@ -53,30 +53,30 @@ const SensorMap = (props) => {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: '#ff0025',
         fillOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 4,
         strokeOpacity: 1,
         strokeColor: '#b9132c',
-        scale: 10,
+        scale: 12.5,
       };
     } else if (sensorType === 'S') {
       return {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: '#003eff',
         fillOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 4,
         strokeOpacity: 1,
         strokeColor: '#0b3cbf',
-        scale: 10,
+        scale: 12.5,
       };
     } else if (sensorType === 'D') {
       return {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: '#ffff00',
         fillOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 4,
         strokeOpacity: 1,
         strokeColor: '#ccc600',
-        scale: 10,
+        scale: 12.5,
       };
     }
   };
@@ -101,13 +101,13 @@ const SensorMap = (props) => {
       <Map
         google={props.google}
         containerStyle={containerStyle}
-        zoom={14}
+        zoom={15.5}
         onClick={onMapClick}
         initialCenter={{
           // lat: props.center.lat,
           // lng: props.center.lng,
-          lat: 37,
-          lng: -122.06,
+          lat: 37.001,
+          lng: -122.05,
         }}
       >
         {props.activeSensors.map((sensor) => {
@@ -136,5 +136,5 @@ const SensorMap = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: '',
+  apiKey: 'AIzaSyAe8inQgtWl9rdPCgadYXj-5CrGxqrOo38',
 })(SensorMap);

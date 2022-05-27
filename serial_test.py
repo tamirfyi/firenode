@@ -7,7 +7,7 @@ from datetime import datetime
 
 url = 'http://localhost:3010/reading'
 
-ser = serial.Serial('/dev/tty.usbmodem1461203', 115200)
+ser = serial.Serial('/dev/tty.usbmodem141303', 115200)
 ser.flushInput()
 
 # Testing displaying data from serial connection

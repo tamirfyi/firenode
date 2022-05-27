@@ -9,8 +9,6 @@ INSERT INTO Sensor(id, sensorType, xpos, ypos) VALUES (01, 'B', 37.00, -122.06);
 INSERT INTO Sensor(id, sensorType, xpos, ypos) VALUES (02, 'S', 37.00, -122.07);
 INSERT INTO Sensor(id, sensorType, xpos, ypos) VALUES (03, 'D', 37.00, -122.08);
 
-
-
 -- Sample reading data
 
 DELETE FROM Reading;

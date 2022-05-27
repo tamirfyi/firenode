@@ -9,8 +9,8 @@ readingObj = {
   'sensorId': 3,
   'readTime': timeString,
   'co': 0.0,
-  'temp': 0.0,
-  'humid': 0.0,
+  'temp': 36.74,
+  'humid': 20.22,
 }
 
 x = requests.post(url, json=readingObj)
